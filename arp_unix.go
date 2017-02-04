@@ -26,11 +26,22 @@ func Table() ArpTable {
 		if len(fields) < 3 {
 			continue
 		}
+		//get unbracketed ip address
 		ip := strings.Trim(fields[1], "()")
+		//get mac address
 		mac := fields[3]
 		if mac == "(incomplete)" {
 			continue
 		}
+		//enforce 2 hex chars
+		octs := strings.SplitN(mac, ":", 5)
+		for i, oct := range octs {
+			if len(oct) == 1 {
+				octs[i] = "0" + oct
+			}
+		}
+		mac = strings.Join(octs, ":")
+		//store entry
 		table[ip] = mac
 	}
 
