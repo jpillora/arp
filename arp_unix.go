@@ -26,12 +26,12 @@ func Table() ArpTable {
 		if len(fields) < 3 {
 			continue
 		}
-
-		// strip brackets around IP
-		ip := strings.Replace(fields[1], "(", "", -1)
-		ip = strings.Replace(ip, ")", "", -1)
-
-		table[ip] = fields[3]
+		ip := strings.Trim(fields[1], "()")
+		mac := fields[3]
+		if mac == "(incomplete)" {
+			continue
+		}
+		table[ip] = mac
 	}
 
 	return table
