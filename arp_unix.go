@@ -34,7 +34,7 @@ func Table() ArpTable {
 			continue
 		}
 		//enforce 2 hex chars
-		octs := strings.SplitN(mac, ":", 5)
+		octs := strings.SplitN(mac, ":", 6)
 		for i, oct := range octs {
 			if len(oct) == 1 {
 				octs[i] = "0" + oct
